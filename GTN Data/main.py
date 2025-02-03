@@ -6,6 +6,7 @@ from functions import *
 
 def home(request):
     return render(request, 'scraper/home.html')
+
 def scrape(request):
     if request.method == 'POST':
         asins = request.POST.get('asins', '').split(',')
@@ -36,3 +37,9 @@ def scrape(request):
         return JsonResponse({'data': scraped_data})
     
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+# Add Vercel configuration
+import os
+from django.core.wsgi import get_wsgi_application
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "your_project.settings")
+app = get_wsgi_application()
